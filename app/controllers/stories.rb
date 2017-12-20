@@ -1,14 +1,14 @@
-get '/stories' do
-  # protected!
-  erb :'stories/index'
-end
-
 get '/' do
   redirect '/stories'
 end
 
-get '/update_sprint' do
-  # protected!
+get '/stories' do
+   protected!
+  erb :'stories/index'
+end
+
+post '/stories' do
+  protected!
   update_current_iteration
   redirect to('/')
 end
@@ -16,16 +16,7 @@ end
 
 helpers do
 
-  def protected!
-    return if authorized?
-    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-    halt 401, "Not authorized\n"
-  end
-
-  def authorized?
-    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [ENV['USER'], ENV['USER_PW']]
-  end
+  
 
   def generate_home # unnecessary to call just a function
     release_tix_html
