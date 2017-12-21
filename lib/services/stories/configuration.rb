@@ -22,7 +22,8 @@ module Services
               s["owner_ids"].each do |oid|
                 AssignedProject.create(
                   project_id: Project.find_by_ppid(s["project_id"]).id,
-                  user_id: User.find_by_poid(oid).id
+                  user_id: User.find_by_poid(oid).id,
+                  story_id: Story.find_by_psid(s["id"]).id
                 )
               end
             end

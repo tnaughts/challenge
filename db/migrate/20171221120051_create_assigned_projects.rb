@@ -3,6 +3,7 @@ class CreateAssignedProjects < ActiveRecord::Migration
     create_table :assigned_projects do |t|
       t.integer :project_id
       t.integer  :user_id
+      t.integer :story_id
       t.datetime :created_at
       t.datetime :updated_at
     end
