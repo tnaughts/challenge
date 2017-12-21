@@ -1,3 +1,4 @@
 class Story < ActiveRecord::Base
-  # Remember to create a migration!
+  belongs_to :project
+  has_many :labels
 end

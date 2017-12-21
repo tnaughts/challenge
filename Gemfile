@@ -8,7 +8,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 
 gem 'activesupport', '~>5.0.0'
-gem 'activerecord', '~>5.0.0'
+
 
 gem 'rake'
 

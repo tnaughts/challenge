@@ -3,7 +3,8 @@ get '/' do
 end
 
 get '/stories' do
-   protected!
+  protected!
+
   erb :'stories/index'
 end
 
@@ -15,8 +16,6 @@ end
 
 
 helpers do
-
-  
 
   def generate_home # unnecessary to call just a function
     release_tix_html
@@ -31,6 +30,7 @@ helpers do
                "unstarted" =>'#F5A9A9'}
                #move colors to front end css
     stories = get_release_tickets
+    # p stories
     #this is a hash of projext ids and their labels
     code = " <h1>Sprint #{ENV['RELEASE_LABEL']}</h1>"
     afterAccepted = false
@@ -59,11 +59,6 @@ helpers do
 
   def get_release_label #returns a hash of projextids
     label = ENV['RELEASE_LABEL'] || '2.2017.1'
-    p ENV['PT_PROJECTS']
-    p ENV['RELEASE_LABEL']
-
-
-
     {"project_ids" => ENV['PT_PROJECTS'].split(", "), "name" => label }
   end
 
@@ -71,12 +66,12 @@ helpers do
     stories = []
     label = get_release_label #hash of labels
     label["project_ids"].each do |id|
+      p "#{pivotal_url}/projects/#{id}/search?query=label%3A#{label["name"]}+AND+includedone%3Atrue"
       response = make_call_parsed("#{pivotal_url}/projects/#{id}/search?query=label%3A#{label["name"]}+AND+includedone%3Atrue", pivotal_headers)["stories"]
       if response
         stories << response["stories"]
       end
     end
-    p stories
     stories.flatten
   end
 
