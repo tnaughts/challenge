@@ -24,4 +24,18 @@
 ## Updates
 
 ### moved to restful Sinatra structure
--changed Owners to user (planning to set up relations)
+- changed Owners to user (planning to set up relations)
+- moved helpers to separate helper folder
+
+### set up Tables
+- added a User, Story, Project, and AssignedProject table
+- set up relations
+
+### seeding Services
+- unsure of how the app will be used, either as the main input for all stories or if it will continue to need to be reseeded
+
+### Created restful routing on controllers
+- began setup of basic front end
+
+### future
+- implement serialization of resources so that any type of front end tech can be utilized
