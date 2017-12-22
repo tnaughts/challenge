@@ -20,7 +20,7 @@ require "sinatra/reloader" if development?
 
 require 'erb'
 
-
+require 'sinatra/cross_origin'
 require 'json'
 require 'rest-client'
 require 'pry'
@@ -39,6 +39,8 @@ configure do
 
   enable :sessions
   set :session_secret, ENV['SESSION_SECRET'] || 'this is a secret shhhhh'
+
+  enable :cross_origin
 
   #setting views
   set :views, File.join(Sinatra::Application.root, "app", "views")

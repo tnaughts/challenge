@@ -1,10 +1,22 @@
-get '/projects' do
+before do
+  response.headers['Access-Control-Allow-Origin'] = '*'
+end
+
+options '*' do
+  response.headers["Allow"] = "GET, POST, OPTIONS, PUT"
+  response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+  response.headers["Access-Control-Allow-Methods"] = "PUT"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  200
+end
+
+get '/api/vi/projects' do
   protected!
   @projects = Project.all
   {projects: @projects}.to_json
 end
 
-post '/projects/new' do
+post '/api/vi/projects/new' do
   protected!
   @project = Project.new(params[:project])
   if @project.save
@@ -13,14 +25,14 @@ post '/projects/new' do
   {errors: @project.save!}
 end
 
-put '/projects/:psid' do
+put '/api/vi/projects/:psid' do
   protected!
   @project = Story.find_by_psid(params[:psid])
   @project.update(params[:project])
   {project: @project}.to_json
 end
 
-get '/projects/:ppid' do
+get '/api/vi/projects/:ppid' do
   protected!
   @project = Project.find_by_ppid(params[:ppid])
   @stories = Story.where(project_id: Project.find_by_ppid(params[:ppid]).id)

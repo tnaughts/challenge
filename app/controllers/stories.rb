@@ -1,15 +1,27 @@
-get '/stories' do
+before do
+  response.headers['Access-Control-Allow-Origin'] = '*'
+end
+
+options '*' do
+  response.headers["Allow"] = "GET, POST, OPTIONS, PUT"
+  response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+  response.headers["Access-Control-Allow-Methods"] = "PUT"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  200
+end
+
+get '/api/vi/stories' do
   protected!
   @stories = Story.all
   {stories: @stories}.to_json
 end
 
-get '/stories/:psid' do
+get '/api/vi/stories/:psid' do
   @story = Story.find_by_psid(params[:psid])
   {story: @story}.to_json
 end
 
-post '/stories/new' do
+post '/api/vi/stories/new' do
   protected!
   @story = Story.new(params[:story])
   if @story.save
@@ -18,14 +30,14 @@ post '/stories/new' do
   {errors: @story.save!}
 end
 
-put '/stories/:psid' do
+put '/api/vi/stories/:psid' do
   protected!
   @story = Story.find_by_psid(params[:psid])
   @story.update(params[:project])
   {story: @story}.to_json
 end
 
-delete '/stories/:psid' do
+delete '/api/vi/stories/:psid' do
   protected!
   @story = Story.find_by_psid(params[:psid]).delete
   redirect '/stories'
