@@ -1,0 +1,13 @@
+<h1><%= @project.name %><h2>
+<div>
+  <ul>
+  <% @stories.each do |s| %>
+    <li>
+      <a href="<%=s.url%>"><%= s.name %> </a> -
+      <%= s.users.pluck(:name).join(' | ') %> -
+      <b class="<%=s.status%>"><%= s.status %> </b>
+      <%= s.points || "" %>
+    </li>
+    <%end%>
+  </ul>
+</div>
