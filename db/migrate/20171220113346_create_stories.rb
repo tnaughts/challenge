@@ -9,7 +9,6 @@ class CreateStories < ActiveRecord::Migration
       t.integer :requested_by_id
       t.string :url
       t.integer :project_id
-      t.integer :owned_by_id
       t.datetime :deadline
       t.datetime :accepted_at
 

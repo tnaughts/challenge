@@ -28,7 +28,7 @@
 - moved helpers to separate helper folder
 
 ### set up Tables
-- added a User, Story, Project, and AssignedProject table
+- added a User, Story, Project, and AssignedStory table
 - set up relations
 
 ### seeding Services
@@ -37,5 +37,5 @@
 ### Created restful routing on controllers
 - began setup of basic front end
 
-### future
+### Routes
 - implement serialization of resources so that any type of front end tech can be utilized
