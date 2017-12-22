@@ -5,14 +5,15 @@
 - PSQL
 
 ## To Run:
-- `ruby rtchallenge.rb`
+- `shotgun`
 
 ## Requirements:
-- `ENV['USER']='user'` user to login with
-- `ENV['USER_PW']='password1'` password to login with
-- `ENV['PT_TOKEN']='d133a1b130e414e794958136fd6e8a76'`
-- `ENV['PT_PROJECTS']='2088251, 2088250'` pivotal projects
-- `ENV['RELEASE_LABEL']=''` Name of current release tag by PM.
+- PIVOTAL_URL="https://www.pivotaltracker.com/services/v5"
+- PT_TOKEN='d133a1b130e414e794958136fd6e8a76'
+- PT_PROJECTS='2088251, 2088250'
+- RELEASE_LABEL='2.2017.1'
+- RT_USER='user'
+- RT_USER_PW='password1'
 
 ## Additional Info:
 
