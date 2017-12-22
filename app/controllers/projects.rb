@@ -1,9 +1,11 @@
 get '/projects' do
+  protected!
   @projects = Project.all
   {projects: @projects}.to_json
 end
 
 post '/projects/new' do
+  protected!
   @project = Project.new(params[:project])
   if @project.save
     return {project: @project}.to_json
@@ -19,6 +21,7 @@ put '/projects/:psid' do
 end
 
 get '/projects/:ppid' do
+  protected!
   @project = Project.find_by_ppid(params[:ppid])
   @stories = Story.where(project_id: Project.find_by_ppid(params[:ppid]).id)
   {project: @project, stories: @stories}.to_json
