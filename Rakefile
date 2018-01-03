@@ -146,4 +146,8 @@ begin
 rescue LoadError
 end
 
+task :test do
+  Dir.glob('./spec/features/services/*/*.rb').each { |file| require file}
+end
+
 task :default  => :spec

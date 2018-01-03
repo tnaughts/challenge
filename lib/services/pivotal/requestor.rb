@@ -11,7 +11,6 @@ module Services
       end
 
       def process
-        p "#{url}/#{resource}"
         make_call_parsed("#{url}/#{resource}")
       end
 
