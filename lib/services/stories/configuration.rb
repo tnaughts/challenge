@@ -1,3 +1,5 @@
+require './lib/services/pivotal/requestor'
+
 module Services
   module Stories
     module Configuration
@@ -6,7 +8,8 @@ module Services
         label = ENV['RELEASE_LABEL'] || '2.2017.1'
 
         Project.all.pluck(:ppid).each do |id|
-          Services::Pivotal::Requestor.new("projects/#{id}/search?query=label%3A#{label}+AND+includedone%3Atrue").process["stories"]["stories"].each do |s|
+          stories = fetch_stories(id, label)
+          stories.each do |s|
             unless Story.find_by(psid: s["id"], name: s["name"])
               Story.create(
                 psid: s["id"],
@@ -17,7 +20,9 @@ module Services
                 url: s["url"],
                 project_id: Project.find_by_ppid(s["project_id"]).id,
                 deadline: s["deadline"],
-                accepted_at: s["accepted_at"]
+                accepted_at: s["accepted_at"],
+                story_type: s["story_type"]
+
               )
               s["owner_ids"].each do |oid|
                 AssignedStory.create(
@@ -43,6 +48,9 @@ module Services
         end
       end
 
+      def self.fetch_stories(id, label)
+        Services::Pivotal::Requestor.new("projects/#{id}/search?query=label%3A#{label}+AND+includedone%3Atrue").process["stories"]["stories"]
+      end
     end
   end
 end
